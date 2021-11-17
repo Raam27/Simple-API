@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
 )
 
@@ -65,6 +66,11 @@ func CreateUser(c echo.Context) error {
 	err := json.NewDecoder(c.Request().Body).Decode(&user)
 	if err != nil {
 		c.String(http.StatusUnauthorized, err.Error())
+	}
+	validate := validator.New()
+	err = validate.Struct(user)
+	if err != nil {
+		return c.NoContent(http.StatusBadRequest)
 	}
 	db.Create(&user)
 	return c.JSON(http.StatusCreated, "berhasil membuat")
