@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  api:
+    build: ./
+    container_name: api
+    restart: always
+    ports:
+    - "1323:1323"
+  
+  mysql:
+    image: mysql:8.0.27
+    container_name: mysql
+    restart: always
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: coba
+      MYSQL_USER: raam
+      MYSQL_PASSWORD: raam
+    volumes:
+    - /mysqldata:/var/lib/mysql
+
+networks:
+  default:
+    name: kc-network
