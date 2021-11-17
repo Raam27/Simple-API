@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
@@ -72,6 +73,7 @@ func CreateUser(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
+	user.Username = strings.ToLower(user.Username)
 	db.Create(&user)
 	return c.JSON(http.StatusCreated, "berhasil membuat")
 }
