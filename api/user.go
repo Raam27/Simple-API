@@ -74,6 +74,7 @@ func CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 	user.Username = strings.ToLower(user.Username)
+	fmt.Println(user.Username)
 	db.Create(&user)
 	return c.JSON(http.StatusCreated, "berhasil membuat")
 }
