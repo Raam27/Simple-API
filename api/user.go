@@ -29,6 +29,7 @@ func GetUser(c echo.Context) error {
 	if user.Username == "" {
 		return c.NoContent(http.StatusNotFound)
 	}
+	user.Username = strings.ToLower(user.Username)
 	usernameDB := user.Username
 	firstName := "Coba"
 	email := fmt.Sprintf("%s@localhost.com", usernameDB)
@@ -73,8 +74,7 @@ func CreateUser(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
-	user.Username = strings.ToLower(user.Username)
-	fmt.Println(user.Username)
+
 	db.Create(&user)
 	return c.JSON(http.StatusCreated, "berhasil membuat")
 }
