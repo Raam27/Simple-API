@@ -68,7 +68,9 @@ func CreateUser(c echo.Context) error {
 		c.String(http.StatusUnauthorized, err.Error())
 	}
 	validate := validator.New()
-	err = validate.Struct(user)
+	err = validate.Struct(&user)
+	fmt.Println(user)
+	fmt.Println(err)
 	if err != nil {
 		return c.NoContent(http.StatusBadRequest)
 	}
