@@ -69,10 +69,8 @@ func CreateUser(c echo.Context) error {
 	}
 	validate := validator.New()
 	err = validate.Struct(&user)
-	fmt.Println(user)
-	fmt.Println(err)
 	if err != nil {
-		return c.NoContent(http.StatusBadRequest)
+		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 	db.Create(&user)
 	return c.JSON(http.StatusCreated, "berhasil membuat")
